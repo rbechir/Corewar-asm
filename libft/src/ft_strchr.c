@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 15:30:42 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/20 00:23:29 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/23 08:12:03 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,5 @@ char	*ft_strchr(const char *s, int c)
 			return ((char*)s + i);
 		i++;
 	}
-	if (s[i] == (char)c)
-		return ((char*)s + i);
-	else
-		return (NULL);
+	return (NULL);
 }

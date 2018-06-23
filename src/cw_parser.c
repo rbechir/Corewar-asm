@@ -6,13 +6,40 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 01:35:12 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/22 07:50:04 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/23 11:51:20 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 #include <fcntl.h>
 #include <unistd.h>
+
+void	cw_display_labels(t_asm *comp)
+{
+	t_lbl	*tmp;
+	t_idx	*tmp2;
+
+	tmp = comp->label;
+	ft_printf("-----------------------------------------------------------\n");
+	while (tmp)
+	{
+		ft_printf("Nom label : %s -- ", tmp->name);
+		ft_printf("Confirmed : %d -- ", tmp->confirmed);
+		ft_printf("@ : %d\n", tmp->add);
+		if (tmp->replace)
+		{
+			ft_printf("Replacement to do :\n");
+			tmp2 = tmp->replace;
+			while (tmp2)
+			{
+				ft_printf("@: %d\n", tmp2->idx);
+				tmp2 = tmp2->next;
+			}
+		}
+		ft_printf("Next : %p\n\n", tmp->next);
+		tmp = tmp->next;
+	}
+}
 
 /*
 ** bonus :

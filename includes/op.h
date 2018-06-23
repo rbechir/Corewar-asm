@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/22 07:57:54 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/23 11:51:23 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 
 # define PROG_NAME_LENGTH	128
 # define COMMENT_LENGTH		2048
+# define HEADER_LENGTH		(PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
 # define COREWAR_EXEC_MAGIC	0xea83f3
 
 typedef struct	s_idx
@@ -90,6 +91,8 @@ typedef struct	s_header
 	unsigned int		prog_size;
 	char				comment[COMMENT_LENGTH + 1];
 }				t_header;
+
+void			cw_display_labels(t_asm *comp);
 
 void			cw_get_header(t_asm *comp);
 void			cw_get_instructions(t_asm *comp);

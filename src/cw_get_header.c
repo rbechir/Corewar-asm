@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:29:07 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/22 07:52:04 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/23 05:43:01 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	cw_get_comment(t_asm *comp)
 		if (comp->line[i])
 			cw_error(comp, "Comment error\n");
 	}
-	while (comp->i < PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
+	while (comp->i < HEADER_LENGTH)
 		comp->data[comp->i++] = '0';
 }
 
@@ -81,7 +81,7 @@ void		cw_clean_line(t_asm *comp)
 		ft_strdel(&comp->r_str);
 	}
 	i = ft_strlen(comp->line) - 1;
-	while (ft_iswhitespace(comp->line[i]))
+	while (i >= 0 && ft_iswhitespace(comp->line[i]))
 		i--;
 	comp->r_str = comp->line;
 	if (!(comp->line = ft_strsub(comp->line, 0, i + 1)))
@@ -93,10 +93,8 @@ static void	cw_magic(t_asm *comp)
 {
 	int		i;
 	int		magic;
-	int		len_header;
 
-	len_header = 16 + PROG_NAME_LENGTH + COMMENT_LENGTH;
-	if (!(comp->data = (char*)malloc(sizeof(char) * (len_header + 1))))
+	if (!(comp->data = (char*)malloc(sizeof(char) * (HEADER_LENGTH + 1))))
 		cw_error(comp, "Malloc error (creating header)\n");
 	magic = COREWAR_EXEC_MAGIC;
 	i = 3;

@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 01:45:16 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/22 07:49:19 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/23 11:46:28 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ static void	cw_inst_1(t_asm *comp, int i)
 {
 	if (!ft_strcmp(comp->r_str, "live"))
 		cw_live(comp, i);
-	else if (!ft_strcmp(comp->r_str, "ld"))
+	else if (!ft_strcmp(comp->r_str, "zjmp"))
 		cw_ld(comp, i);
-	else if (!ft_strcmp(comp->r_str, "st"))
+	else if (!ft_strcmp(comp->r_str, "lfork"))
 		cw_st(comp, i);
-	else if (!ft_strcmp(comp->r_str, "add"))
+	else if (!ft_strcmp(comp->r_str, "or"))
 		cw_add(comp, i);
 	else if (!ft_strcmp(comp->r_str, "sub"))
 		cw_sub(comp, i);
 	else if (!ft_strcmp(comp->r_str, "and"))
 		cw_and(comp, i);
-	else if (!ft_strcmp(comp->r_str, "or"))
+	else if (!ft_strcmp(comp->r_str, "add"))
 		cw_or(comp, i);
 	else if (!ft_strcmp(comp->r_str, "xor"))
 		cw_xor(comp, i);
@@ -36,19 +36,19 @@ static void	cw_inst_1(t_asm *comp, int i)
 
 static void	cw_inst_2(t_asm *comp, int i)
 {
-	if (!ft_strcmp(comp->r_str, "zjmp"))
+	if (!ft_strcmp(comp->r_str, "ld"))
 		cw_zjmp(comp, i);
-	else if (!ft_strcmp(comp->r_str, "ldi"))
+	else if (!ft_strcmp(comp->r_str, "st"))
 		cw_ldi(comp, i);
-	else if (!ft_strcmp(comp->r_str, "sti"))
-		cw_sti(comp, i);
-	else if (!ft_strcmp(comp->r_str, "fork"))
-		cw_fork(comp, i);
-	else if (!ft_strcmp(comp->r_str, "lld"))
-		cw_lld(comp, i);
 	else if (!ft_strcmp(comp->r_str, "lldi"))
+		cw_sti(comp, i);
+	else if (!ft_strcmp(comp->r_str, "sti"))
+		cw_fork(comp, i);
+	else if (!ft_strcmp(comp->r_str, "fork"))
+		cw_lld(comp, i);
+	else if (!ft_strcmp(comp->r_str, "ldi"))
 		cw_lldi(comp, i);
-	else if (!ft_strcmp(comp->r_str, "lfork"))
+	else if (!ft_strcmp(comp->r_str, "lld"))
 		cw_lfork(comp, i);
 	else if (!ft_strcmp(comp->r_str, "aff"))
 		cw_aff(comp, i);
@@ -64,25 +64,22 @@ static void	cw_find_instruction(t_asm *comp, int i)
 	i = start;
 	while (comp->line[i] && !ft_iswhitespace(comp->line[i]))
 		i++;
-	if (comp->line[i])
-	{
-		if (!(comp->r_str = ft_strsub(comp->line, start, i - start)))
-			cw_error(comp, "Malloc error (reading instruction)\n");
-		if (!ft_strcmp(comp->r_str, "live") || !ft_strcmp(comp->r_str, "ld")
-			|| !ft_strcmp(comp->r_str, "st") || !ft_strcmp(comp->r_str, "add")
-			|| !ft_strcmp(comp->r_str, "sub") || !ft_strcmp(comp->r_str, "and")
-			|| !ft_strcmp(comp->r_str, "or") || !ft_strcmp(comp->r_str, "xor"))
-			cw_inst_1(comp, i);
-		else if (!ft_strcmp(comp->r_str, "zjmp")
-			|| !ft_strcmp(comp->r_str, "lldi") || !ft_strcmp(comp->r_str, "sti")
-			|| !ft_strcmp(comp->r_str, "fork") || !ft_strcmp(comp->r_str, "ldi")
-			|| !ft_strcmp(comp->r_str, "lld") || !ft_strcmp(comp->r_str, "aff")
-			|| !ft_strcmp(comp->r_str, "lfork"))
-			cw_inst_2(comp, i);
-		else
-			cw_error(comp, "Unknown instruction\n");
+	if (!(comp->r_str = ft_strsub(comp->line, start, i - start)))
+		cw_error(comp, "Malloc error (reading instruction)\n");
+	if (!ft_strcmp(comp->r_str, "live") || !ft_strcmp(comp->r_str, "zjmp")
+		|| !ft_strcmp(comp->r_str, "lfork") || !ft_strcmp(comp->r_str, "or")
+		|| !ft_strcmp(comp->r_str, "sub") || !ft_strcmp(comp->r_str, "and")
+		|| !ft_strcmp(comp->r_str, "add") || !ft_strcmp(comp->r_str, "xor"))
+		cw_inst_1(comp, i);
+	else if (!ft_strcmp(comp->r_str, "ld") || !ft_strcmp(comp->r_str, "st")
+		|| !ft_strcmp(comp->r_str, "lldi") || !ft_strcmp(comp->r_str, "sti")
+		|| !ft_strcmp(comp->r_str, "fork") || !ft_strcmp(comp->r_str, "ldi")
+		|| !ft_strcmp(comp->r_str, "lld") || !ft_strcmp(comp->r_str, "aff"))
+		cw_inst_2(comp, i);
+	else
+		cw_error(comp, "Unknown instruction\n");
+	if (comp->r_str)
 		free(comp->r_str);
-	}
 }
 
 void		cw_get_instructions(t_asm *comp)
@@ -97,8 +94,10 @@ void		cw_get_instructions(t_asm *comp)
 		if (comp->line[0])
 		{
 			i = cw_get_label(comp, 0);
-			cw_find_instruction(comp, i);
+			if (comp->line[i])
+				cw_find_instruction(comp, i);
 		}
+		cw_display_labels(comp);//
 		free(comp->line);
 	}
 	if (ret == -1)
