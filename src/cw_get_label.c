@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 03:25:42 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/23 11:24:23 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/25 22:47:56 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	cw_update_lbl(t_asm *comp, t_lbl **label, int conf)
 	{
 		(*label)->confirmed = 1;
 		(*label)->add = comp->i - HEADER_LENGTH;
+		free(comp->r_str);
 	}
 	else if (!conf && !(*label)->replace)
 	{
@@ -42,8 +43,6 @@ static void	cw_update_lbl(t_asm *comp, t_lbl **label, int conf)
 
 static void	cw_create_lbl(t_asm *comp, t_lbl **label, int conf)
 {
-	int		i;
-
 	if (!(*label = (t_lbl*)malloc(sizeof(t_lbl) * 1)))
 		cw_error(comp, "Malloc error (creating label structure)\n");
 	(*label)->confirmed = conf;
@@ -56,10 +55,10 @@ static void	cw_create_lbl(t_asm *comp, t_lbl **label, int conf)
 	}
 	else
 	{
-		i = 1;
-		while (ft_strchr(LABEL_CHARS, comp->r_str[i]))
-			i++;
-		if (!((*label)->name = ft_strsub(comp->r_str, 1, i - 1)))
+		conf = 1;
+		while (ft_strchr(LABEL_CHARS, comp->r_str[conf]))
+			conf++;
+		if (!((*label)->name = ft_strsub(comp->r_str, 1, conf - 1)))
 			cw_error(comp, "Malloc error (creating label)\n");
 		(*label)->add = 0;
 		if (!((*label)->replace = (t_idx*)malloc(sizeof(t_idx) * 1)))

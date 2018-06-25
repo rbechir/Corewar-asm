@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:29:07 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/23 05:43:01 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/25 21:31:45 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ static void	cw_magic(t_asm *comp)
 	int		i;
 	int		magic;
 
-	if (!(comp->data = (char*)malloc(sizeof(char) * (HEADER_LENGTH + 1))))
+	if (!(comp->data = (char*)malloc(sizeof(char) *
+		(HEADER_LENGTH + CHAMP_MAX_SIZE + 1))))
 		cw_error(comp, "Malloc error (creating header)\n");
 	magic = COREWAR_EXEC_MAGIC;
 	i = 3;
