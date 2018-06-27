@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/25 23:22:17 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 03:05:52 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "libftprintf.h"
 
-//# define IND_SIZE	2
 //# define REG_SIZE	4
 //# define DIR_SIZE	REG_SIZE
+//# define IND_SIZE	2
 
 # define REG_CODE	1
 # define DIR_CODE	2
@@ -41,13 +41,6 @@
 
 # define REG_NUMBER	16
 
-//# define CYCLE_TO_DIE	1536
-//# define CYCLE_DELTA	50
-//# define NBR_LIVE		21
-//# define MAX_CHECKS		10
-
-//typedef char	t_arg_type;
-
 # define T_REG	1
 # define T_DIR	2
 # define T_IND	4
@@ -56,7 +49,7 @@
 # define PROG_NAME_LENGTH	128
 # define COMMENT_LENGTH		2048
 # define HEADER_LENGTH		(PROG_NAME_LENGTH + COMMENT_LENGTH + 16)
-# define COREWAR_EXEC_MAGIC	0xea83f3
+# define COREWAR_EXEC_MAGIC	0x00ea83f3
 
 typedef struct	s_idx
 {
@@ -84,19 +77,16 @@ typedef struct	s_asm
 	t_lbl	*label;
 }				t_asm;
 
-typedef struct	s_header
-{
-	unsigned int		magic;
-	char				prog_name[PROG_NAME_LENGTH + 1];
-	unsigned int		prog_size;
-	char				comment[COMMENT_LENGTH + 1];
-}				t_header;
-
 void			cw_display_labels(t_asm *comp);
 
 void			cw_get_header(t_asm *comp);
 void			cw_get_instructions(t_asm *comp);
 int				cw_get_label(t_asm *comp, int start);
+void			cw_get_number(t_asm *comp, int start, int i);
+void			cw_count_args(t_asm *comp, char *str, int nbr);
+int				cw_check_dir(t_asm *comp, char *str, int i);
+int				cw_check_ind(t_asm *comp, char *str, int i);
+int				cw_check_reg(t_asm *comp, char *str, int i);
 void			cw_live(t_asm *comp, int i);
 void			cw_ld(t_asm *comp, int i);
 void			cw_st(t_asm *comp, int i);

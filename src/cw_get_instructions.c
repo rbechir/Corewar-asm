@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 01:45:16 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/25 22:47:54 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/26 21:44:04 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	cw_find_instruction(t_asm *comp, int i)
 	else
 		cw_error(comp, "Unknown instruction\n");
 	if (comp->r_str)
-		free(comp->r_str);
+		ft_strdel(&comp->r_str);
 }
 
 void		cw_get_instructions(t_asm *comp)
@@ -98,7 +98,7 @@ void		cw_get_instructions(t_asm *comp)
 				cw_find_instruction(comp, i);
 		}
 		cw_display_labels(comp);//
-		free(comp->line);
+		ft_strdel(&comp->line);
 	}
 	if (ret == -1)
 		cw_error(comp, "Error when reading file\n");
