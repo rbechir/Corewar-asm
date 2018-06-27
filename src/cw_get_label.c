@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 03:25:42 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 06:35:12 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 08:11:15 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	cw_update_lbl(t_asm *comp, t_lbl **label, int conf, int pc)
 				tmp1 = tmp1->next;
 		if ((*label)->replace != tmp2)
 			tmp1->next = tmp2;
-		tmp2->idx = comp->i;
-		tmp2->value = pc - HEADER_LENGTH;
+		tmp2->idx = comp->i + (pc / 100000000 * 100000000);
+		tmp2->value = (pc % 100000000) - HEADER_LENGTH;
 		tmp2->next = NULL;
 	}
 }
@@ -63,8 +63,8 @@ static void	cw_create_lbl(t_asm *comp, t_lbl **label, int conf, int pc)
 		(*label)->add = 0;
 		if (!((*label)->replace = (t_idx*)malloc(sizeof(t_idx) * 1)))
 			cw_error(comp, "Malloc error (creating label structure)\n");
-		(*label)->replace->idx = comp->i;
-		(*label)->replace->value = pc - HEADER_LENGTH;
+		(*label)->replace->idx = comp->i + (pc / 100000000 * 100000000);
+		(*label)->replace->value = (pc % 100000000) - HEADER_LENGTH;
 		(*label)->replace->next = NULL;
 	}
 }

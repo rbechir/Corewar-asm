@@ -6,13 +6,13 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 05:21:37 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 06:42:44 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 08:48:09 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-static void	cw_get_args(t_asm *comp, int i)
+static void	cw_get_args(t_asm *comp, int i, int size)
 {
 	char	*tmp;
 	
@@ -23,16 +23,16 @@ static void	cw_get_args(t_asm *comp, int i)
 			ft_strlen(comp->r_str) - 1)))
 			cw_error(comp, "Malloc error (getting label)\n");
 		free(tmp);
-		cw_get_label(comp, i + 1, comp->i - 1);
+		cw_get_label(comp, i + 1, (comp->i - 1) + (size * 100000000));
 		i = 0;
-		while (i < 4)
+		while (i < size)
 		{
 			comp->data[comp->i++] = '0';
 			i++;
 		}
 	}
 	else
-		cw_get_number(comp, i, 4);
+		cw_get_number(comp, i, size);
 }
 
 static void	cw_check_args(t_asm *comp, int i)
@@ -50,5 +50,5 @@ void		cw_live(t_asm *comp, int i)
 	comp->data[comp->i++] = '1';
 	i = ft_skip_whitespace(comp->line, i);
 	cw_check_args(comp, i);
-	cw_get_args(comp, 1);
+	cw_get_args(comp, 1, 4);
 }
