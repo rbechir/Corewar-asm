@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/27 03:05:52 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 06:42:45 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 typedef struct	s_idx
 {
 	int				idx;
+	int				value;
 	struct s_idx	*next;
 }				t_idx;
 
@@ -81,8 +82,9 @@ void			cw_display_labels(t_asm *comp);
 
 void			cw_get_header(t_asm *comp);
 void			cw_get_instructions(t_asm *comp);
-int				cw_get_label(t_asm *comp, int start);
+int				cw_get_label(t_asm *comp, int start, int pc);
 void			cw_get_number(t_asm *comp, int start, int i);
+void			cw_place_labels(t_asm *comp);
 void			cw_count_args(t_asm *comp, char *str, int nbr);
 int				cw_check_dir(t_asm *comp, char *str, int i);
 int				cw_check_ind(t_asm *comp, char *str, int i);

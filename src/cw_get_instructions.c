@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 01:45:16 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/26 21:44:04 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 05:44:53 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		cw_get_instructions(t_asm *comp)
 		cw_clean_line(comp);
 		if (comp->line[0])
 		{
-			i = cw_get_label(comp, 0);
+			i = cw_get_label(comp, 0, comp->i);
 			if (comp->line[i])
 				cw_find_instruction(comp, i);
 		}

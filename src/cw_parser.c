@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 01:35:12 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/26 21:41:07 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 06:11:21 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	cw_display_labels(t_asm *comp)
 			while (tmp2)
 			{
 				ft_printf("@: %d\n", tmp2->idx);
+				ft_printf("@i: %d\n", tmp2->value);
 				tmp2 = tmp2->next;
 			}
 		}
@@ -100,6 +101,7 @@ int			main(int argc, char **argv)
 		cw_check_file(comp, argv[1]);
 		cw_get_header(comp);
 		cw_get_instructions(comp);
+		cw_place_labels(comp);
 		close(comp->fd);
 		cw_create_file(comp);
 		cw_free_struct(comp);

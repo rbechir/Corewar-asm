@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 05:21:37 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 03:05:50 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 06:42:44 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 static void	cw_get_args(t_asm *comp, int i)
 {
+	char	*tmp;
+	
 	if (comp->r_str[i] == LABEL_CHAR)
 	{
-		cw_get_label(comp, i + 1);
+		tmp = comp->r_str;
+		if (!(comp->r_str = ft_strsub(comp->r_str, 1,
+			ft_strlen(comp->r_str) - 1)))
+			cw_error(comp, "Malloc error (getting label)\n");
+		free(tmp);
+		cw_get_label(comp, i + 1, comp->i - 1);
 		i = 0;
 		while (i < 4)
 		{
@@ -25,9 +32,7 @@ static void	cw_get_args(t_asm *comp, int i)
 		}
 	}
 	else
-	{
 		cw_get_number(comp, i, 4);
-	}
 }
 
 static void	cw_check_args(t_asm *comp, int i)

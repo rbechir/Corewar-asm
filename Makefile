@@ -6,7 +6,7 @@
 #    By: rbechir <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/10 16:34:40 by rbechir           #+#    #+#              #
-#    Updated: 2018/06/27 01:28:30 by rbechir          ###   ########.fr        #
+#    Updated: 2018/06/27 06:11:14 by rbechir          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC				= cw_parser.c \
 				  cw_get_instructions.c \
 				  cw_get_label.c \
 				  cw_get_number.c \
+				  cw_place_labels.c \
 				  cw_args.c \
 				  cw_live.c \
 				  cw_ld.c \
