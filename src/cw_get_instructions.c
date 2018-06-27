@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 01:45:16 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 05:44:53 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 14:28:20 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static void	cw_inst_1(t_asm *comp, int i)
 	if (!ft_strcmp(comp->r_str, "live"))
 		cw_live(comp, i);
 	else if (!ft_strcmp(comp->r_str, "zjmp"))
-		cw_ld(comp, i);
+		cw_zjmp(comp, i);
 	else if (!ft_strcmp(comp->r_str, "lfork"))
-		cw_st(comp, i);
+		cw_lfork(comp, i);
 	else if (!ft_strcmp(comp->r_str, "or"))
-		cw_add(comp, i);
+		cw_or(comp, i);
 	else if (!ft_strcmp(comp->r_str, "sub"))
 		cw_sub(comp, i);
 	else if (!ft_strcmp(comp->r_str, "and"))
 		cw_and(comp, i);
 	else if (!ft_strcmp(comp->r_str, "add"))
-		cw_or(comp, i);
+		cw_add(comp, i);
 	else if (!ft_strcmp(comp->r_str, "xor"))
 		cw_xor(comp, i);
 	else
@@ -37,19 +37,19 @@ static void	cw_inst_1(t_asm *comp, int i)
 static void	cw_inst_2(t_asm *comp, int i)
 {
 	if (!ft_strcmp(comp->r_str, "ld"))
-		cw_zjmp(comp, i);
+		cw_ld(comp, i);
 	else if (!ft_strcmp(comp->r_str, "st"))
-		cw_ldi(comp, i);
+		cw_st(comp, i);
 	else if (!ft_strcmp(comp->r_str, "lldi"))
-		cw_sti(comp, i);
-	else if (!ft_strcmp(comp->r_str, "sti"))
-		cw_fork(comp, i);
-	else if (!ft_strcmp(comp->r_str, "fork"))
-		cw_lld(comp, i);
-	else if (!ft_strcmp(comp->r_str, "ldi"))
 		cw_lldi(comp, i);
+	else if (!ft_strcmp(comp->r_str, "sti"))
+		cw_sti(comp, i);
+	else if (!ft_strcmp(comp->r_str, "fork"))
+		cw_fork(comp, i);
+	else if (!ft_strcmp(comp->r_str, "ldi"))
+		cw_ldi(comp, i);
 	else if (!ft_strcmp(comp->r_str, "lld"))
-		cw_lfork(comp, i);
+		cw_lld(comp, i);
 	else if (!ft_strcmp(comp->r_str, "aff"))
 		cw_aff(comp, i);
 	else
@@ -97,9 +97,11 @@ void		cw_get_instructions(t_asm *comp)
 			if (comp->line[i])
 				cw_find_instruction(comp, i);
 		}
-		cw_display_labels(comp);//
 		ft_strdel(&comp->line);
 	}
 	if (ret == -1)
 		cw_error(comp, "Error when reading file\n");
+	comp->data[comp->i] = '\0';
+	cw_place_size(comp);
+	cw_place_labels(comp);
 }

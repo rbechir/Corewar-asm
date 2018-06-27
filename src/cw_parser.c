@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 01:35:12 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 06:11:21 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 15:21:02 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void	cw_display_labels(t_asm *comp)
+void		cw_display_labels(t_asm *comp)
 {
 	t_lbl	*tmp;
 	t_idx	*tmp2;
@@ -101,8 +101,8 @@ int			main(int argc, char **argv)
 		cw_check_file(comp, argv[1]);
 		cw_get_header(comp);
 		cw_get_instructions(comp);
-		cw_place_labels(comp);
 		close(comp->fd);
+		comp->fd = 0;
 		cw_create_file(comp);
 		cw_free_struct(comp);
 	}

@@ -3,4 +3,6 @@
 
 live: live %42
 live %:live1
-live1: live %:live
+lfork %:live
+aff r2
+live1: 

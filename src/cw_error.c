@@ -6,11 +6,12 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:04:04 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/26 21:43:01 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 15:18:44 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
+#include <unistd.h>
 
 static void	cw_free_lbl(t_asm *comp)
 {
@@ -38,6 +39,8 @@ void		cw_free_struct(t_asm *comp)
 	{
 		if (comp->line)
 			free(comp->line);
+		if (comp->fd)
+			close(comp->fd);
 		if (comp->r_str)
 			free(comp->r_str);
 		if (comp->cor_file)
@@ -53,5 +56,5 @@ void		cw_error(t_asm *comp, char *str)
 {
 	cw_free_struct(comp);
 	ft_printf("%s", str);
-		exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }

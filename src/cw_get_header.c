@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:29:07 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/25 21:31:45 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 15:36:42 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,9 @@ void		cw_get_header(t_asm *comp)
 			else if (i == 1)
 				cw_get_comment(comp);
 			i++;
-			free(comp->line);
 		}
+		if (comp->line)
+			ft_strdel(&comp->line);
 	}
 	if (i != 2)
 		cw_error(comp, "Incomplete header\n");

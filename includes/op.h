@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/27 08:48:11 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/27 15:48:39 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void			cw_get_instructions(t_asm *comp);
 int				cw_get_label(t_asm *comp, int start, int pc);
 void			cw_get_number(t_asm *comp, int start, int i);
 void			cw_place_labels(t_asm *comp);
+void			cw_place_size(t_asm *comp);
 void			cw_count_args(t_asm *comp, char *str, int nbr);
 int				cw_check_dir(t_asm *comp, char *str, int i);
 int				cw_check_ind(t_asm *comp, char *str, int i);
