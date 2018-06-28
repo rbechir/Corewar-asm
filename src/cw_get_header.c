@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:29:07 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 23:03:45 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/29 00:19:14 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ static void	cw_get_comment(t_asm *comp)
 {
 	int		i;
 
-	if (!(comp->r_str = ft_strsub(comp->line, 0,
+	i = ft_skip_whitespace(comp->line, 0);
+	if (!(comp->r_str = ft_strsub(comp->line, i,
 		ft_strlen(COMMENT_CMD_STRING))))
 		cw_error(comp, "Malloc error (champion's comment)\n");
 	if (ft_strcmp(comp->r_str, COMMENT_CMD_STRING))
 		cw_error(comp, "Comment command error\n");
 	ft_strdel(&comp->r_str);
-	i = ft_skip_whitespace(comp->line, ft_strlen(COMMENT_CMD_STRING));
-	if (comp->line[i] != '\"')
+	i = ft_skip_whitespace(comp->line, ft_strlen(COMMENT_CMD_STRING) + i);
+	if (comp->line[i++] != '\"')
 		cw_error(comp, "Comment error\n");
-	i++;
 	while (comp->line[i] && comp->line[i] != '\"'
 			&& comp->i < PROG_NAME_LENGTH + COMMENT_LENGTH + 12)
 		comp->data[comp->i++] = comp->line[i++];
@@ -45,15 +45,15 @@ static void	cw_get_name(t_asm *comp)
 {
 	int		i;
 
-	if (!(comp->r_str = ft_strsub(comp->line, 0, ft_strlen(NAME_CMD_STRING))))
+	i = ft_skip_whitespace(comp->line, 0);
+	if (!(comp->r_str = ft_strsub(comp->line, i, ft_strlen(NAME_CMD_STRING))))
 		cw_error(comp, "Malloc error (champion's name)\n");
 	if (ft_strcmp(comp->r_str, NAME_CMD_STRING))
 		cw_error(comp, "Name command error\n");
 	ft_strdel(&comp->r_str);
-	i = ft_skip_whitespace(comp->line, ft_strlen(NAME_CMD_STRING));
-	if (comp->line[i] != '\"')
+	i = ft_skip_whitespace(comp->line, ft_strlen(NAME_CMD_STRING) + 1);
+	if (comp->line[i++] != '\"')
 		cw_error(comp, "Name error\n");
-	i++;
 	while (comp->line[i] && comp->line[i] != '\"'
 			&& comp->i < PROG_NAME_LENGTH + 4)
 		comp->data[comp->i++] = comp->line[i++];

@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 01:35:12 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 21:12:14 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 23:31:32 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,23 @@ static void	cw_init_struct(t_asm *comp)
 int			main(int argc, char **argv)
 {
 	t_asm	*comp;
+	int		i;
 
-	if (argc == 2 && cw_check_h())
+	i = 1;
+	while (argc >= 2 && cw_check_h() && i < argc)
 	{
 		if (!(comp = (t_asm*)malloc(sizeof(t_asm) * 1)))
 			cw_error(comp, "Malloc error (asm struct)\n");
 		cw_init_struct(comp);
-		cw_check_file(comp, argv[1]);
+		cw_check_file(comp, argv[i]);
 		cw_get_header(comp);
 		cw_get_instructions(comp);
 		close(comp->fd);
 		cw_create_file(comp);
 		cw_free_struct(comp);
+		i++;
 	}
-	else
+	if (argc < 2 || !cw_check_h())
 	{
 		ft_printf("\nUsage : ./asm FILE.s\n\n");
 		if (!cw_check_h())
