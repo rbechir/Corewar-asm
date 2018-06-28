@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 01:13:45 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 20:44:33 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 22:39:23 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static char	*cw_conv(t_asm *comp, intmax_t nbr, int size)
 	neg = 0;
 	if (!(str = (char*)malloc(sizeof(char) * size)))
 		cw_error(comp, "Malloc error (converting number)\n");
-	if (nbr < 0)
-		neg = 1;
 	while (--size >= 0)
 	{
-		if (neg && !size)
+		if (neg)
 			str[size] = (nbr % 256) - 1;
 		else
 			str[size] = (nbr % 256);
+		if (nbr < 0)
+			neg = 1;
 		nbr = nbr / 256;
 	}
 	return (str);

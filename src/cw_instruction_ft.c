@@ -6,7 +6,7 @@
 /*   By: khtran <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 01:20:27 by khtran            #+#    #+#             */
-/*   Updated: 2018/06/28 20:37:45 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 22:26:26 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			cw_get_args(t_asm *comp, int i, int size, int octet)
 			ft_strlen(comp->r_str) - i)))
 			cw_error(comp, "Malloc error (getting label)\n");
 		free(tmp);
-		cw_get_label(comp, i + 1, (comp->i - octet) + (size * 100000000));
+		cw_get_label(comp, 1, (comp->i - octet) + (size * 100000000));
 		i = -1;
 		while (++i < size)
 			comp->data[comp->i++] = 0;

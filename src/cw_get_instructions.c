@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 01:45:16 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 20:39:24 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 22:52:57 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,12 @@ void		cw_get_instructions(t_asm *comp)
 				cw_find_instruction(comp, i);
 		}
 		ft_strdel(&comp->line);
+		if (comp->i - HEADER_LENGTH > CHAMP_MAX_SIZE)
+			cw_error(comp, "Oh no, it's too big for me !\n");
 	}
 	if (ret == -1)
 		cw_error(comp, "Error when reading file\n");
-	comp->data[comp->i] = 0;
-	if (comp->i - HEADER_LENGTH > CHAMP_MAX_SIZE)
-		cw_error(comp, "Oh no, it's too big for me !\n");
-	i = comp->i;
+		i = comp->i;
 	cw_place_size(comp);
 	cw_place_labels(comp);
 	comp->i = i;

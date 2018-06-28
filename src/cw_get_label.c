@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 03:25:42 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 17:51:00 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 22:26:15 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int			cw_get_label(t_asm *comp, int start, int pc)
 {
 	int		i;
 
-	i = ft_skip_whitespace(comp->line, start);
 	if (!start)
 	{
+		i = ft_skip_whitespace(comp->line, start);
 		while (ft_strchr(LABEL_CHARS, comp->line[i]))
 			i++;
 		if (comp->line[i] != LABEL_CHAR)
