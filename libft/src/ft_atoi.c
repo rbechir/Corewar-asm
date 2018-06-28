@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:14:19 by rbechir           #+#    #+#             */
-/*   Updated: 2018/03/13 15:41:37 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 20:23:40 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,9 @@ intmax_t	ft_atoimax(char *str)
 	while (ft_iswhitespace(str[i]))
 		i++;
 	if (str[i] == 43 || str[i] == 45)
-	{
-		signe = 44 - str[i];
-		i++;
-	}
+		signe = 44 - str[i++];
 	while (ft_isdigit(str[i]))
-	{
-		res = res * 10 + (str[i] - 48);
-		i++;
-	}
+		res = res * 10 + (str[i++] - 48);
 	return (signe * res);
 }
 
@@ -77,14 +71,8 @@ int			ft_atoi(const char *str)
 	while (ft_iswhitespace(str[i]))
 		i++;
 	if (str[i] == 43 || str[i] == 45)
-	{
-		signe = 44 - str[i];
-		i++;
-	}
+		signe = 44 - str[i++];
 	while (ft_isdigit(str[i]))
-	{
-		res = res * 10 + (str[i] - 48);
-		i++;
-	}
+		res = res * 10 + (str[i++] - 48);
 	return (signe * res);
 }

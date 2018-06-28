@@ -6,47 +6,45 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/27 01:13:45 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 14:48:29 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 20:13:51 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-static char	*cw_conv(t_asm *comp, int nbr, int size)
+static char	*cw_conv(t_asm *comp, intmax_t nbr, int size)
 {
 	int		neg;
 	char	*str;
 
 	neg = 0;
-	if (!(str = (char*)malloc(sizeof(char) * (size + 1))))
+	if (!(str = (char*)malloc(sizeof(char) * size)))
 		cw_error(comp, "Malloc error (converting number)\n");
-	str[size--] = '\0';
 	if (nbr < 0)
 		neg = 1;
-	while (size >= 0)
+	while (--size >= 0)
 	{
-		if (!nbr && neg)
-			str[size] = 47;
+		if (neg && !size)
+			str[size] = (nbr % 256) - 1;
 		else
-			str[size] = (nbr % 256) + 48;
+			str[size] = (nbr % 256);
 		nbr = nbr / 256;
-		size--;
 	}
 	return (str);
 }
 
 void		cw_get_number(t_asm *comp, int start, int size)
 {
-	int		nbr;
-	char	*tmp;
+	intmax_t	nbr;
+	char		*tmp;
 
 	if (!(tmp = ft_strsub(comp->r_str, start, ft_strlen(comp->r_str) - start)))
 		cw_error(comp, "Malloc error (getting number)\n");
-	nbr = ft_atoi(tmp);
+	nbr = ft_atoimax(tmp);
 	free(tmp);
 	tmp = cw_conv(comp, nbr, size);
-	nbr = 0;
-	while (tmp[nbr])
-		comp->data[comp->i++] = tmp[nbr++];
+	start = 0;
+	while (size-- > 0)
+		comp->data[comp->i++] = tmp[start++];
 	free(tmp);
 }

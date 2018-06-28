@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:29:07 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 15:36:42 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 20:31:46 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	cw_get_comment(t_asm *comp)
 	i++;
 	while (comp->line[i] && comp->line[i] != '\"'
 			&& comp->i < PROG_NAME_LENGTH + COMMENT_LENGTH + 12)
-		comp->data[comp->i++] = comp->line[i++] + 48;
+		comp->data[comp->i++] = comp->line[i++];
 	if (comp->line[i] != '\"')
 		cw_error(comp, "Comment error\n");
 	if (comp->line[i + 1])
@@ -38,7 +38,7 @@ static void	cw_get_comment(t_asm *comp)
 			cw_error(comp, "Comment error\n");
 	}
 	while (comp->i < HEADER_LENGTH)
-		comp->data[comp->i++] = '0';
+		comp->data[comp->i++] = 0;
 }
 
 static void	cw_get_name(t_asm *comp)
@@ -56,7 +56,7 @@ static void	cw_get_name(t_asm *comp)
 	i++;
 	while (comp->line[i] && comp->line[i] != '\"'
 			&& comp->i < PROG_NAME_LENGTH + 4)
-		comp->data[comp->i++] = comp->line[i++] + 48;
+		comp->data[comp->i++] = comp->line[i++];
 	if (comp->line[i] != '\"')
 		cw_error(comp, "Name error\n");
 	if (comp->line[i + 1])
@@ -66,7 +66,7 @@ static void	cw_get_name(t_asm *comp)
 			cw_error(comp, "Name error\n");
 	}
 	while (comp->i < PROG_NAME_LENGTH + 12)
-		comp->data[comp->i++] = '0';
+		comp->data[comp->i++] = 0;
 }
 
 void		cw_clean_line(t_asm *comp)
@@ -101,7 +101,7 @@ static void	cw_magic(t_asm *comp)
 	i = 3;
 	while (i >= 0)
 	{
-		comp->data[i] = (magic % 256) + 48;
+		comp->data[i] = (magic % 256);
 		magic = magic / 256;
 		i--;
 	}

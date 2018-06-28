@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 01:35:12 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 15:21:02 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:59:10 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int			main(int argc, char **argv)
 		cw_get_header(comp);
 		cw_get_instructions(comp);
 		close(comp->fd);
-		comp->fd = 0;
 		cw_create_file(comp);
 		cw_free_struct(comp);
 	}

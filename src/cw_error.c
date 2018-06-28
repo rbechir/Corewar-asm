@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:04:04 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 15:18:44 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:46:00 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		cw_free_struct(t_asm *comp)
 	{
 		if (comp->line)
 			free(comp->line);
-		if (comp->fd)
+		if (comp->fd > 0)
 			close(comp->fd);
 		if (comp->r_str)
 			free(comp->r_str);

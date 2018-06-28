@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 18:40:59 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/27 01:13:34 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 17:47:37 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int		cw_check_reg(t_asm *comp, char *str, int i)
 	if (nbr < 1 || nbr > REG_NUMBER)
 		cw_error(comp, "Bad reg number\n");
 	i = ft_skip_whitespace(str, i);
-	if (str[i] && str[i] != SEPARATOR_CHAR)
-		cw_error(comp, "Syntax error\n");
 	return (i);
 }
 
@@ -54,8 +52,6 @@ int		cw_check_ind(t_asm *comp, char *str, int i)
 			i++;
 	}
 	i = ft_skip_whitespace(str, i);
-	if (str[i] && str[i] != SEPARATOR_CHAR)
-		cw_error(comp, "Syntax error\n");
 	return (i);
 }
 
@@ -78,8 +74,6 @@ int		cw_check_dir(t_asm *comp, char *str, int i)
 			i++;
 	}
 	i = ft_skip_whitespace(str, i);
-	if (str[i] && str[i] != SEPARATOR_CHAR)
-		cw_error(comp, "Syntax error\n");
 	return (i);
 }
 
