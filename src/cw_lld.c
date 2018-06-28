@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 05:21:37 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 17:55:22 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 20:50:50 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ void		cw_lld(t_asm *comp, int i)
 	i = 0;
 	i = cw_get_args(comp, i + cw_tsize(4, total_size >> 6, 1),
 		cw_tsize(4, total_size >> 6, 0), label_index);
-	label_index += cw_tsize(4, total_size >> 6 , 0);
+	label_index += cw_tsize(4, total_size >> 6, 0);
 	cw_get_args(comp, i + 1, 1, label_index);
 }

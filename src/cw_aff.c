@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 05:21:37 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 17:47:08 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 20:49:43 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void	cw_check_args(t_asm *comp, int i, int *total_size)
 		cw_error(comp, "Bad argument (aff instruction)\n");
 }
 
-void	cw_aff(t_asm *comp, int i)
+void		cw_aff(t_asm *comp, int i)
 {
 	int		total_size;
-	
+
 	ft_strdel(&comp->r_str);
 	comp->data[comp->i++] = 16;
 	i = ft_skip_whitespace(comp->line, i);

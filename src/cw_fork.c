@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 05:21:37 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 17:47:52 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/28 20:49:54 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	cw_check_args(t_asm *comp, int i)
 		cw_error(comp, "Bad argument (fork instruction)\n");
 }
 
-void	cw_fork(t_asm *comp, int i)
+void		cw_fork(t_asm *comp, int i)
 {
 	ft_strdel(&comp->r_str);
 	comp->data[comp->i++] = 12;
