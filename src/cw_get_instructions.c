@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 01:45:16 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 23:03:47 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/29 02:25:17 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void		cw_get_instructions(t_asm *comp)
 		if (comp->i - HEADER_LENGTH > CHAMP_MAX_SIZE)
 			cw_error(comp, "Oh no, it's too big for me !\n");
 	}
+	if (comp->i - HEADER_LENGTH <= 0)
+		cw_error(comp, "No code, no .cor !\n");
 	if (ret == -1)
 		cw_error(comp, "Error when reading file\n");
 	i = comp->i;

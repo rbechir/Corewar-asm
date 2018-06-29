@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cw_get_header.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: dlaurent <dlaurent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:29:07 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/29 00:19:14 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/29 03:09:34 by dlaurent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,23 @@ void		cw_clean_line(t_asm *comp)
 {
 	int		i;
 
-	if ((i = ft_strchri(comp->line, COMMENT_CHAR)) != -1)
+	if (comp->line && comp->line[0])
 	{
+		if ((i = ft_strchri(comp->line, COMMENT_CHAR)) != -1)
+		{
+			comp->r_str = comp->line;
+			if (!(comp->line = ft_strsub(comp->line, 0, i)))
+				cw_error(comp, "Malloc error (cleaning line)\n");
+			ft_strdel(&comp->r_str);
+		}
+		i = ft_strlen(comp->line) - 1;
+		while (i >= 0 && ft_iswhitespace(comp->line[i]))
+			i--;
 		comp->r_str = comp->line;
-		if (!(comp->line = ft_strsub(comp->line, 0, i)))
+		if (!(comp->line = ft_strsub(comp->line, 0, i + 1)))
 			cw_error(comp, "Malloc error (cleaning line)\n");
 		ft_strdel(&comp->r_str);
 	}
-	i = ft_strlen(comp->line) - 1;
-	while (i >= 0 && ft_iswhitespace(comp->line[i]))
-		i--;
-	comp->r_str = comp->line;
-	if (!(comp->line = ft_strsub(comp->line, 0, i + 1)))
-		cw_error(comp, "Malloc error (cleaning line)\n");
-	ft_strdel(&comp->r_str);
 }
 
 static void	cw_magic(t_asm *comp)
@@ -94,8 +97,8 @@ static void	cw_magic(t_asm *comp)
 	int		i;
 	int		magic;
 
-	if (!(comp->data = (char*)malloc(sizeof(char) *
-		(HEADER_LENGTH + CHAMP_MAX_SIZE + 12))))
+	if (!(comp->data = (char*)malloc(sizeof(char)
+		* (HEADER_LENGTH + CHAMP_MAX_SIZE + 12))))
 		cw_error(comp, "Malloc error (creating header)\n");
 	magic = COREWAR_EXEC_MAGIC;
 	i = 3;
@@ -107,13 +110,8 @@ static void	cw_magic(t_asm *comp)
 	}
 }
 
-void		cw_get_header(t_asm *comp)
+void		cw_get_header(t_asm *comp, int i, int ret)
 {
-	int		i;
-	int		ret;
-
-	i = 0;
-	ret = 1;
 	cw_magic(comp);
 	while (ret && i < 2)
 	{
@@ -122,10 +120,15 @@ void		cw_get_header(t_asm *comp)
 		cw_clean_line(comp);
 		if (ret && comp->line[0])
 		{
-			if (i == 0)
+			if (i == 0 && ft_strlen(comp->line) > ft_strlen(NAME_CMD_STRING))
 				cw_get_name(comp);
-			else if (i == 1)
+			else if (i == 0)
+				cw_error(comp, "Name command error\n");
+			else if (i == 1
+					&& ft_strlen(comp->line) > ft_strlen(COMMENT_CMD_STRING))
 				cw_get_comment(comp);
+			else if (i == 1)
+				cw_error(comp, "Comment command error\n");
 			i++;
 		}
 		if (comp->line)

@@ -6,7 +6,7 @@
 /*   By: rbechir <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 03:25:42 by rbechir           #+#    #+#             */
-/*   Updated: 2018/06/28 22:26:15 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/29 07:27:37 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	cw_update_lbl(t_asm *comp, t_lbl **label, int conf, int pc)
 	{
 		(*label)->confirmed = 1;
 		(*label)->add = comp->i - HEADER_LENGTH;
-		free(comp->r_str);
 	}
 	else if (!conf)
 	{
@@ -115,7 +114,10 @@ static int	cw_read_conf_label(t_asm *comp, int start, int pc)
 		if (ret)
 			cw_create_lbl(comp, &tmp->next, 1, pc);
 		else
+		{
 			cw_update_lbl(comp, &tmp, 1, pc);
+			free(comp->r_str);
+		}
 	}
 	comp->r_str = NULL;
 	return (ft_strchri(comp->line, LABEL_CHAR) + 1);

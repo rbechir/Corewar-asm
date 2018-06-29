@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/28 20:39:44 by rbechir          ###   ########.fr       */
+/*   Updated: 2018/06/29 02:11:13 by rbechir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct	s_asm
 
 void			cw_display_labels(t_asm *comp);
 
-void			cw_get_header(t_asm *comp);
+void			cw_get_header(t_asm *comp, int i, int ret);
 void			cw_get_instructions(t_asm *comp);
 int				cw_get_label(t_asm *comp, int start, int pc);
 void			cw_get_number(t_asm *comp, int start, int i);
